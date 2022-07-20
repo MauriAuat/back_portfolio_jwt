@@ -4,6 +4,7 @@ import com.portfolio.TF.entity.Tecnologias;
 import com.portfolio.TF.service.TecnologiaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,17 +26,20 @@ public class TecnologiasController {
     public List<Tecnologias> verTecnologias() {
         return tecnoService.mostrarTecnologias();
     }
-    
+ 
+    @PreAuthorize("hasRole('ADMIN')")   
     @PostMapping("/nueva")
     public void agregarTecnologia(@RequestBody Tecnologias tecno) {
         tecnoService.crearTecnologia(tecno);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/borrar/{id}")
     public void borrarTecnologia(@PathVariable int id) {
         tecnoService.borrarTecnologia(id);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/editar")
     public void editarTecnologia(@RequestBody Tecnologias tecno) {
         Tecnologias nva = tecnoService.buscarTecnologia(tecno.getId_tecno());

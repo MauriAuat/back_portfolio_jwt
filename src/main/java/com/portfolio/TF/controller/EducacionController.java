@@ -4,6 +4,7 @@ import com.portfolio.TF.entity.Educacion;
 import com.portfolio.TF.service.EducacionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,16 +27,19 @@ public class EducacionController {
         return eduService.mostrarEducacion();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/nueva")
     public void agregarEducacion(@RequestBody Educacion edu) {
         eduService.crearEducacion(edu);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/borrar/{id}")
     public void borrarEducacion(@PathVariable int id) {
         eduService.borrarEducacion(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/editar")
     public void editarEducacion(@RequestBody Educacion edu) {
         Educacion nva = eduService.buscarEducacion(edu.getId_edu());

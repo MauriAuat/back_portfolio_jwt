@@ -4,6 +4,7 @@ import com.portfolio.TF.entity.ExperienciaLaboral;
 import com.portfolio.TF.service.ExperienciaLaboralService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,16 +27,19 @@ public class ExperienciaLaboralController {
         return expService.mostrarExperienciaLaboral();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/nueva")
     public void agregarExpLaboral(@RequestBody ExperienciaLaboral expLab) {
         expService.crearExperienciaLaboral(expLab);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/borrar/{id}")
     public void borrarExpLaboral(@PathVariable int id) {
         expService.borrarExperienciaLaboral(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/editar")
     public void editarExpLaboral(@RequestBody ExperienciaLaboral expLab) {
         ExperienciaLaboral nva = expService.buscarExperienciaLaboral(expLab.getId_exp());

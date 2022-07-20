@@ -4,6 +4,7 @@ import com.portfolio.TF.entity.Proyectos;
 import com.portfolio.TF.service.ProyectoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,18 +27,20 @@ public class ProyectosController {
         return proService.mostrarProyectos();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/nuevo")
     public void agregarProyecto(@RequestBody Proyectos proyect) {
         proService.crearProyecto(proyect);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/borrar/{id}")
     public void borrarProyecto(@PathVariable int id) {
         proService.borrarProyecto(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/editar")
-
     public void editarProyecto(@RequestBody Proyectos proyect) {
         Proyectos nvo = proService.buscarProyecto(proyect.getId_proyecto());
         if (nvo != null) {

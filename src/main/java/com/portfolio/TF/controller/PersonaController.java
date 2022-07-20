@@ -8,6 +8,7 @@ import com.portfolio.TF.entity.Persona;
 import com.portfolio.TF.service.PersonaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,16 +31,20 @@ public class PersonaController {
         return persoService.mostrarPersonas();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/nueva")
     public void agregarPersona(@RequestBody Persona perso) {
         persoService.crearPersona(perso);
     }
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/borrar/{id}")
     public void borrarPersona(@PathVariable int id) {
         persoService.borrarPersona(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/editar")
     public void editarPersona(@RequestBody Persona perso) {
         Persona nva = persoService.buscarPersona(perso.getId_pers());
