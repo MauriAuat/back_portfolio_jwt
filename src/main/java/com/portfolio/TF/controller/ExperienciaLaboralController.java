@@ -50,7 +50,7 @@ public class ExperienciaLaboralController {
             nva.setFecha_inicio(expLab.getFecha_inicio());
             nva.setFecha_fin(expLab.getFecha_fin());
             nva.setDescripcion(expLab.getDescripcion());
-            nva.setPersona(expLab.getPersona());
+           
             expService.modificarExperienciaLaboral(nva);
         }
     }

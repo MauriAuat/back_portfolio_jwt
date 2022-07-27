@@ -8,8 +8,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/proyectos")
-@CrossOrigin(origins = "http//localhost:4200")
+@RequestMapping("/api/project")
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class ProyectosController {
 
     @Autowired
@@ -30,6 +31,7 @@ public class ProyectosController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/nuevo")
     public void agregarProyecto(@RequestBody Proyectos proyect) {
+
         proService.crearProyecto(proyect);
     }
 
